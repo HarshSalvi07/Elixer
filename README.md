@@ -4,7 +4,7 @@ A personal evolution platform.
 
 ## Vision
 Don't compare yourself with other people.
-Compare yourself with the person you used to be.
+Compare yourself with the person you are and the one you want to be.
 
 ## Initial POIs
 1. Self Learning
