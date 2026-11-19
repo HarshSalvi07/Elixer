@@ -1,0 +1,20 @@
+{
+  "name": "elixer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A personal evolution platform.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarshSalvi07/Elixer.git"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"No tests configured yet\""
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
