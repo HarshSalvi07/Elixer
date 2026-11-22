@@ -1,49 +1,52 @@
 
 # Development, Staging and Production Environments
 
-This diagram illustrates the three primary environments used throughout the Elixer development lifecycle.
+This diagram illustrates how Elixer separates development, staging and production environments, including Docker-based containerization.
 
 ```mermaid
 flowchart TD
-    DEV["Development Environment"]
-    STAGING["Staging Environment"]
-    PROD["Production Environment"]
+    subgraph DEV["Development Environment"]
+        DEV_ENGINE["Docker Engine"]
+        COMPOSE["Docker Compose"]
 
-    DEV_APP["Local Mobile / Web Apps"]
-    DEV_API["Local Backend"]
-    DEV_DB[("Development Database")]
+        DEV_APP["Local Mobile / Web Apps"]
+        DEV_BACKEND["Backend Container"]
+        DEV_AI["AI Service Container"]
+        DEV_DB[("Optional Local PostgreSQL")]
 
-    STAGE_APP["Staging Applications"]
-    STAGE_API["Staging Backend"]
-    STAGE_DB[("Staging Database")]
+        COMPOSE --> DEV_BACKEND
+        COMPOSE --> DEV_AI
+        COMPOSE --> DEV_DB
 
-    PROD_APP["Live Mobile / Web Apps"]
-    PROD_API["Production Backend"]
-    PROD_DB[("Production Database")]
+        DEV_APP --> DEV_BACKEND
+        DEV_BACKEND --> DEV_DB
+    end
 
-    DEV --> DEV_APP
-    DEV --> DEV_API
-    DEV --> DEV_DB
+    subgraph STAGING["Staging Environment"]
+        STAGE_REGISTRY["Container Registry"]
+        STAGE_BACKEND["Backend Container"]
+        STAGE_AI["AI Service Container"]
+        STAGE_DB[("Staging Database")]
 
-    DEV_APP --> DEV_API
+        STAGE_REGISTRY --> STAGE_BACKEND
+        STAGE_REGISTRY --> STAGE_AI
 
-    DEV_API --> DEV_DB
+        STAGE_BACKEND --> STAGE_DB
+    end
 
-    DEV -->|Validated changes| STAGING
+    subgraph PROD["Production Environment"]
+        PROD_REGISTRY["Container Registry"]
+        PROD_BACKEND["Backend Container"]
+        PROD_AI["AI Service Container"]
+        PROD_DB[("Production Database")]
 
-    STAGING --> STAGE_APP
-    STAGING --> STAGE_API
-    STAGING --> STAGE_DB
+        PROD_REGISTRY --> PROD_BACKEND
+        PROD_REGISTRY --> PROD_AI
 
-    STAGE_APP --> STAGE_API
-    STAGE_API --> STAGE_DB
+        PROD_BACKEND --> PROD_DB
+    end
 
-    STAGING -->|Approved release| PROD
-
-    PROD --> PROD_APP
-    PROD --> PROD_API
-    PROD --> PROD_DB
-
-    PROD_APP --> PROD_API
-    PROD_API --> PROD_DB
+    DEV -->|"Validated changes"| STAGING
+    STAGING -->|"Approved release"| PROD
 ```
+
