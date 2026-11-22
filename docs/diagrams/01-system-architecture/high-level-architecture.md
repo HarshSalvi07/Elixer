@@ -82,7 +82,6 @@ flowchart TB
     PREP --> TRAIN
     TRAIN --> EVAL
     EVAL --> INFERENCE
-</mermaid>
 ```
 
 ## 3. Important Architectural Decisions
