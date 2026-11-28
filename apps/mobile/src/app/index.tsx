@@ -1,5 +1,5 @@
-import { Redirect } from "expo-router";
-import { useAuth } from "@/providers/AuthProvider";
+import { Redirect, type Href } from 'expo-router';
+import { useAuth } from '@/providers/AuthProvider';
 
 export default function Index() {
   const { session, loading } = useAuth();
@@ -9,7 +9,11 @@ export default function Index() {
   }
 
   if (session) {
-    return <Redirect href="/(tabs)" />;
+    return (
+      <Redirect
+        href={'/(onboarding)/personal-foundation' as Href}
+      />
+    );
   }
 
   return <Redirect href="/(auth)/login" />;
