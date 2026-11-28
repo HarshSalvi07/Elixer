@@ -1,4 +1,4 @@
-
+import { GradientButton } from '@/components/ui/GradientButton';
 import { useState } from 'react';
 import {
   Alert,
@@ -383,29 +383,15 @@ export function PersonalFoundationForm() {
         </Text>
       )}
 
+      
       {/* Continue */}
-      <Pressable
-        disabled={isSaving}
+      <GradientButton
+        title="Continue"
         onPress={handleContinue}
-        style={[
-          styles.continueButton,
-          {
-            backgroundColor: colors.primary,
-            borderRadius: radius.lg,
-            marginTop: spacing.lg,
-            opacity: isSaving ? 0.7 : 1,
-          },
-        ]}
-      >
-        <Text
-          style={[
-            styles.continueText,
-            { color: colors.textOnPrimary },
-          ]}
-        >
-          {isSaving ? 'Saving...' : 'Continue'}
-        </Text>
-      </Pressable>
+        loading={isSaving}
+        style={{ marginTop: spacing.lg }}
+      />
+
 
       <Text style={[styles.footer, { color: colors.textMuted }]}>
         Stage 1 of your personal foundation
@@ -479,14 +465,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 14,
     fontWeight: '500',
-  },
-  continueButton: {
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  continueText: {
-    fontSize: 16,
-    fontWeight: '700',
   },
   footer: {
     textAlign: 'center',
